@@ -3,20 +3,22 @@
 uv should help streamline installations!
 
 ## configuring and installing uv
-### Ensure uv places downloaded Python binaries and caches in $WORK
-export UV_CACHE_DIR="$WORK/.cache/uv"
-export UV_PYTHON_INSTALL_DIR="$WORK/.local/share/uv/python"
+### Ensure uv places downloaded Python binaries and caches in $SCRATCH
+A previous iteration of this guide suggested installing things in $WORK; DO NOT DO THIS. $WORK is an open filesystem shared by everyone, and installing virtual environments / python binaries in $WORK can result in large I/O overhead.
 
-### Tell the installer to place the 'uv' executable in $WORK as well
-export CARGO_HOME="$WORK/.cargo"
+export UV_CACHE_DIR="$SCRATCH/.cache/uv"
+export UV_PYTHON_INSTALL_DIR="$SCRATCH/.local/share/uv/python"
+
+### Tell the installer to place the 'uv' executable in $SCRATCH as well
+export CARGO_HOME="$SCRATCH/.cargo"
 
 ### download and install uv
 curl -LsSf https://astral.sh | sh
 source ~/.bashrc
 
 ## set up JAX, lineax, and (maybe) equinox
-### Move to your work directory
-cd $WORK
+### Move to your $SCRATCH directory
+cd $SCRATCH
 
 ### Create a Python 3.12 environment in $WORK
 uv venv jax_env --python 3.12
